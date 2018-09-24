@@ -1,0 +1,16 @@
+{
+  "name": "appicivicoBotTester",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Valentin GUILLOT",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.1",
+    "twitter": "^1.7.1"
+  }
+}
