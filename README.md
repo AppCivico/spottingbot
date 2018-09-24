@@ -22,4 +22,4 @@ Then
 
 `npm start username`
 
-**'username' have to be replaced by the profile to analyze
+**`username` have to be replaced by the profile to analyze**
