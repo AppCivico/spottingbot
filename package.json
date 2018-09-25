@@ -2,9 +2,9 @@
   "name": "appicivicoBotTester",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "source/cli.js",
   "scripts": {
-    "start": "node main.js",
+    "start": "node source/cli.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Valentin GUILLOT",
