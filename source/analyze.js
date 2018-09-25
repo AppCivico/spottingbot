@@ -10,18 +10,31 @@ const
   temporalIndex = require('./index/temporal'),
   networkIndex = require('./index/network')
 
-module.exports = function(screen_name, config) {
-  // Create Twitter client
-  const client = new Twitter({
-        consumer_key: config.twitter_consumer_key,
-        consumer_secret: config.twitter_consumer_secret,
-        access_token_key: config.twitter_access_token_key,
-        access_token_secret: config.twitter_access_token_secret
-  });
-  let param = {
-    screen_name: screen_name
-  };
-  async.parallel([
+module.exports = function(screen_name, config, cb) {
+  return new Promise((resolve, reject) => {
+    if (!screen_name || !config) {
+      let error = 'You need to provide an username to analyze and a config for twitter app'
+      if (cb) cb(error, null);
+      reject(error);
+      return error;
+    }
+    if (!config.twitter_consumer_key || !config.twitter_consumer_secret || !config.twitter_access_token_key || !config.twitter_access_token_secret) {
+      let error = ".twitter.json config file should have the following parameters:\ntwitter_consumer_key\ntwitter_consumer_secret\ntwitter_access_token_key\ntwitter_access_token_secret"
+      if (cb) cb(error, null);
+      reject(error);
+      return error;
+    }
+    // Create Twitter client
+    const client = new Twitter({
+          consumer_key: config.twitter_consumer_key,
+          consumer_secret: config.twitter_consumer_secret,
+          access_token_key: config.twitter_access_token_key,
+          access_token_secret: config.twitter_access_token_secret
+    });
+    let param = {
+      screen_name: screen_name
+    };
+    async.parallel([
       function(callback) {
         client.get('users/show', param, async function(error, tweets, response_twitter_user) {
           if (error) {
@@ -72,8 +85,9 @@ module.exports = function(screen_name, config) {
       }
     ], function(err, results) {
       if (err) {
-        console.error(err);
-        return;
+        if (cb) cb(err, null);
+        reject(err);
+        return err;
       }
       let user = results[0][1]
       let userScore = results[0][0]
@@ -81,7 +95,6 @@ module.exports = function(screen_name, config) {
       let temporalScore = results[3][0];
       let networkScore = results[3][1];
       let total = (userScore + friendsScore + temporalScore + networkScore) / 4
-      console.log('User score:', userScore + '%\nFriends score:', friendsScore + '%\nTemporal score:', temporalScore + '%\nNetwork score:', networkScore + '%\nFinal score:', total + '%');
       let object = {
         metadata: {
           count: 1
@@ -113,6 +126,9 @@ module.exports = function(screen_name, config) {
           feedback_report_link: "."
         })
       };
-      return object
+      if (cb) cb(null, object);
+      resolve(object);
+      return object;
     });
+  });
 }
