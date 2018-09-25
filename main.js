@@ -36,6 +36,7 @@ async.parallel([
       client.get('users/show', param, async function(error, tweets, response_twitter_user) {
         if (error) {
           callback(error);
+          return;
         }
         let data = JSON.parse(response_twitter_user.body)
         let res = await calculateUserIndex(data)
@@ -47,6 +48,7 @@ async.parallel([
       client.get('followers/list', param, async function(error, tweets, response_twitter_user) {
         if (error) {
           callback(error);
+          return;
         }
         let data = JSON.parse(response_twitter_user.body)
         let res = await calculateFollowersScore(data)
@@ -58,6 +60,7 @@ async.parallel([
       client.get('friends/list', param, async function(error, tweets, response_twitter_user) {
         if (error) {
           callback(error);
+          return;
         }
         let data = JSON.parse(response_twitter_user.body)
         let res = await calculateFriendsScore(data)
@@ -69,6 +72,7 @@ async.parallel([
       client.get('statuses/user_timeline', param, async function(error, tweets, response_twitter_user) {
         if (error) {
           callback(error);
+          return;
         }
         let data = JSON.parse(response_twitter_user.body)
         let res = await calculateTemporalNetwork(data)
@@ -77,7 +81,8 @@ async.parallel([
     }
   ], function(err, results) {
     if (err) {
-      throw err
+      console.error(err);
+      return;
     }
     let userScore = results[0]
     let friendsScore = Math.round((results[1] + (results[2] * 1.5)) / (2 * 1.5))
@@ -106,7 +111,6 @@ async.parallel([
       let ratio_tweets_day = number_of_tweets / age
       let number_of_favorites = data.favourites_count
       let offset = data.utc_offset
-
       if (verified) {
         resolve(0)
       }
