@@ -1,16 +1,23 @@
 {
   "name": "spottingbot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Analyzing profile on Twitter for detect behavior of spamming bot",
+  "homepage": "https://github.com/AppCivico/spottingbot#readme",
   "main": "source/analyze.js",
   "scripts": {
     "start": "node source/cli.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Valentin GUILLOT",
+  "email" : "valentin@eokoe.com",
+  "url" : "https://github.com/AppCivico/spottingbo/issues",
   "license": "ISC",
   "bin": {
     "spottingbot": "source/cli.js"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/AppCivico/spottingbot.git"
   },
   "dependencies": {
     "async": "^2.6.1",
