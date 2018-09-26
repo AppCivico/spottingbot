@@ -1,8 +1,8 @@
 {
-  "name": "appicivicoBotTester",
+  "name": "spottingbot",
   "version": "1.0.0",
-  "description": "",
-  "main": "source/cli.js",
+  "description": "Analyzing profile on Twitter for detect behavior of spamming bot",
+  "main": "source/analyze.js",
   "scripts": {
     "start": "node source/cli.js",
     "test": "echo \"Error: no test specified\" && exit 1"
