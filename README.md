@@ -5,7 +5,7 @@ Analyzing profile on Twitter for detect behavior of spamming bot
 
 `npm install`
 
-## Usage:
+## Usage
 
 ### Command-line interface
 
@@ -37,3 +37,95 @@ or
 Then
 
 `spottingbot username`
+
+### Module
+
+#### Call
+
+```js
+const spottingbot = require('spottingbot');
+
+spottingbot(username, config)
+```
+
+`username` is a string that contains the screen name of the Twitter profile to analyze.
+
+`config` is an object that contains Twitter app credentials, it should be like:
+
+```js
+{
+  twitter_consumer_key: "Your application consumer key",
+  twitter_consumer_secret: "Your application consumer secret",
+  twitter_access_token_key: "Your application access token key",
+  twitter_access_token_secret: "Your application access token secret"
+}
+```
+
+#### Return value
+
+*spottingbot* handle both *callback* style and *node promise* style
+
+##### Callback
+
+```js
+spottingbot(username, config, function(error, result) {
+  if (err) {
+    // Handle error
+  }
+  // Do something with result
+})
+```
+
+##### Promise
+
+```js
+spottingbot(username, config)
+  .then(result => {
+    // Do something with result
+  })
+  .catch(error => {
+    // Handle error
+  })
+```
+
+##### Value
+
+The return value is an object that contains
+
+```js
+{
+  metadata: {
+    count: 1 // Always 1 for now
+  },
+  profiles: [
+     {
+       username: 'screen_name',
+       url: 'https://twitter.com/screen_name',
+       avatar: 'image link',
+       language_dependent: {
+         content: {
+           value: null  // Unused for now
+         },
+         sentiment: {
+           value: null  // Unused for now
+         }
+       },
+       language_independent: {
+         friend: 19,
+         temporal: 37,
+         network: 95,
+         user: 0
+       },
+       bot_probability: {
+         all: 37.75,
+         language_independent: 37.75
+       },
+       share_link_on_social_network: '.', // Unused
+       user_profile_language: 'en',
+       feedback_report_link: '.'  // Unused
+     }
+  ]
+}
+```
+
+**spottingbot is a project inspired by [Botometer](https://botometer.iuni.iu.edu/#!/) an [OSoMe](https://osome.iuni.iu.edu/) project**
