@@ -9,6 +9,9 @@
   },
   "author": "Valentin GUILLOT",
   "license": "ISC",
+  "bin": {
+    "spottingbot": "source/cli.js"
+  },
   "dependencies": {
     "async": "^2.6.1",
     "twitter": "^1.7.1"

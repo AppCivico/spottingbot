@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // Import external module
 const
   path = require('path'),

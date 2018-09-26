@@ -5,7 +5,9 @@ Analyzing profile on Twitter for detect behavior of spamming bot
 
 `npm install`
 
-## Usage: 
+## Usage:
+
+### Command-line interface
 
 Create a `.twitter.json` file that contains:
 
@@ -22,4 +24,16 @@ Then
 
 `npm start username`
 
-**`username` have to be replaced by the profile to analyze**
+or
+
+`source/cli.js username`
+
+*`username` have to be replaced by the profile to analyze*
+
+#### Install bin locally on your system
+
+`npm link`
+
+Then
+
+`spottingbot username`
