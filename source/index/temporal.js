@@ -18,7 +18,7 @@ module.exports = function(data) {
     let number_of_tweets = data[0].user.statuses_count
     let ratio_tweets_day = number_of_tweets / age
     let ratioTweetScore = ratio_tweets_day * 0.10;
-    let temporal_score = ((1 - (delayTwoTweets.length + 2) / creationArray.length) + ratioTweetScore) * 100
-    resolve(Math.round(temporal_score))
+    let temporal_score = ((1 - (delayTwoTweets.length + 2) / creationArray.length) + ratioTweetScore)
+    resolve(temporal_score)
   })
 }

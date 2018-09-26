@@ -104,21 +104,21 @@ The return value is an object that contains
        avatar: 'image link',
        language_dependent: {
          content: {
-           value: null  // Unused for now
+           value: 0  // Unused for now
          },
          sentiment: {
-           value: null  // Unused for now
+           value: 0  // Unused for now
          }
        },
        language_independent: {
-         friend: 19,
-         temporal: 37,
-         network: 95,
+         friend: 0.19,
+         temporal: 0.37,
+         network: 0.95,
          user: 0
        },
        bot_probability: {
-         all: 37.75,
-         language_independent: 37.75
+         all: 0.37,
+         language_independent: 0.37
        },
        share_link_on_social_network: '.', // Unused
        user_profile_language: 'en',
@@ -128,4 +128,10 @@ The return value is an object that contains
 }
 ```
 
-**spottingbot is a project inspired by [Botometer](https://botometer.iuni.iu.edu/#!/) an [OSoMe](https://osome.iuni.iu.edu/) project**
+**spottingbot is a project inspired by [Botometer](https://botometer.iuni.iu.edu/#!/), an [OSoMe](https://osome.iuni.iu.edu/) project**
+
+**This project is part of the [PegaBot](http://www.pegabot.com.br) initiative.**
+
+**PegaBot is a project of the [Institute of Technology and Society of Rio de Janeiro (ITS Rio)](https://itsrio.org), [Instituto Equidade & Tecnologia](https://tecnologiaequidade.org.br/) and [AppCívico](https://appcivico.com/).**
+
+**spottingbot is an experimental project that needs you to evolve, do not hesitate to contribute on our [GitHub repository](https://github.com/AppCivico/spottingbot) or to contact us at [valentin@eokoe.com](mailto:valentin@eokoe.com).**

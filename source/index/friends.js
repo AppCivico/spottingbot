@@ -40,6 +40,6 @@ module.exports = function(data) {
     if (score_followers > 1) score_followers = 1;
     if (score_statuses > 1) score_statuses = 1;
     friends_score = ((score_offset * 2) + score_age + score_friends + score_followers + score_statuses) / (5 * 2)
-    resolve(Math.round(friends_score * 100))
+    resolve(friends_score)
   })
 }

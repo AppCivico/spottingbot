@@ -27,11 +27,11 @@ if (!screen_name) {
 console.log("Start analyzing the user", screen_name);
 
 analyze(screen_name, config).then(function(info) {
-  let userScore = info.profiles[0].language_independent.user;
-  let friendsScore = info.profiles[0].language_independent.friend;
-  let temporalScore = info.profiles[0].language_independent.temporal;
-  let networkScore = info.profiles[0].language_independent.network;
-  let total = info.profiles[0].bot_probability.all
+  let userScore = Math.round(info.profiles[0].language_independent.user * 100);
+  let friendsScore = Math.round(info.profiles[0].language_independent.friend * 100);
+  let temporalScore = Math.round(info.profiles[0].language_independent.temporal * 100);
+  let networkScore = Math.round(info.profiles[0].language_independent.network * 100);
+  let total = Math.round(info.profiles[0].bot_probability.all * 100);
   console.log('User score:', userScore + '%\nFriends score:', friendsScore + '%\nTemporal score:', temporalScore + '%\nNetwork score:', networkScore + '%\nFinal score:', total + '%');
 }).catch(function(err) {
   console.error(err);

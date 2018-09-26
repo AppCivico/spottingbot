@@ -63,6 +63,6 @@ module.exports = function(data) {
     let userScore = (nameSimilarityScore + numberDigitScore + nameLengthScore + screenNameLengthScore + descriptionLengthScore + ageScore + ratioTweetScore + favoritesScore + imageScore + friendScore) / 10
     if (userScore < 0) userScore = 0;
     else if (userScore > 1) userScore = 1;
-    resolve(Math.round(userScore * 100))
+    resolve(userScore)
   })
 }

@@ -11,7 +11,7 @@
   "author": "Valentin GUILLOT",
   "email" : "valentin@eokoe.com",
   "url" : "https://github.com/AppCivico/spottingbo/issues",
-  "license": "ISC",
+  "license": "GPLv3",
   "bin": {
     "spottingbot": "source/cli.js"
   },

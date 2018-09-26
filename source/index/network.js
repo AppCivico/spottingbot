@@ -19,17 +19,17 @@ module.exports = function(data) {
       })
     })
     let count_network = count_hashtags + count_mentions
-    let average_network = (count_network / (data.length * 2)) * 100
-    if (average_network > 200) {
+    let average_network = (count_network / (data.length * 2))
+    if (average_network > 2) {
       average_network /= 2
     }
-    else if (average_network > 100) {
-      average_network = 100
+    else if (average_network > 1) {
+      average_network = 1
     }
-    let score_hashtags = 100 - ((distribution_hashtags.length / count_hashtags) / (1 / 100))
-    let score_mentions = 100 - ((distribution_user_mentions.length / count_mentions) / (1 / 100))
+    let score_hashtags = 1 - (distribution_hashtags.length / count_hashtags)
+    let score_mentions = 1 - (distribution_user_mentions.length / count_mentions)
     let score_distrib = (score_hashtags + score_mentions) / 2
     let score_network = average_network + score_distrib
-    resolve(Math.round(score_network))
+    resolve(score_network)
   })
 }

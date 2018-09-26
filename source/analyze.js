@@ -91,7 +91,7 @@ module.exports = function(screen_name, config, cb) {
       }
       let user = results[0][1]
       let userScore = results[0][0]
-      let friendsScore = Math.round((results[1] + (results[2] * 1.5)) / (2 * 1.5))
+      let friendsScore = (results[1] + (results[2] * 1.5)) / (2 * 1.5)
       let temporalScore = results[3][0];
       let networkScore = results[3][1];
       let total = (userScore + friendsScore + temporalScore + networkScore) / 4
@@ -105,10 +105,10 @@ module.exports = function(screen_name, config, cb) {
           avatar: user.profile_image_url,
           language_dependent: {
             content: {
-              value: null
+              value: 0
             },
             sentiment: {
-              value: null
+              value: 0
             }
           },
           language_independent: {
