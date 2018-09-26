@@ -1,0 +1,6 @@
+{
+  "twitter_consumer_key": "Your application consumer key",
+  "twitter_consumer_secret": "Your application consumer secret",
+  "twitter_access_token_key": "Your application access token key",
+  "twitter_access_token_secret": "Your application access token secret"
+}
