@@ -24,7 +24,7 @@ Create a `.twitter.json` file that contains:
 }
 ```
 
-Both User and App-only authentication are supported, for App-only, the Bearer token will be automatically requested
+*Both User and App-only authentication are supported, for App-only, the Bearer token will be automatically requested*
 
 #### Start
 
@@ -115,8 +115,7 @@ The return value is an object that contains
          user: 0
        },
        bot_probability: {
-         all: 0.37,
-         language_independent: 0.37
+         all: 0.37
        },
        user_profile_language: 'en',
      }
@@ -124,10 +123,10 @@ The return value is an object that contains
 }
 ```
 
-**spottingbot is a project inspired by [Botometer](https://botometer.iuni.iu.edu/#!/), an [OSoMe](https://osome.iuni.iu.edu/) project**
+**_spottingbot is a project inspired by [Botometer](https://botometer.iuni.iu.edu/#!/), an [OSoMe](https://osome.iuni.iu.edu/) project
 
-**This project is part of the [PegaBot](http://www.pegabot.com.br) initiative.**
+This project is part of the [PegaBot](http://www.pegabot.com.br) initiative.
 
-**PegaBot is a project of the [Institute of Technology and Society of Rio de Janeiro (ITS Rio)](https://itsrio.org), [Instituto Equidade & Tecnologia](https://tecnologiaequidade.org.br/) and [AppCívico](https://appcivico.com/).**
+PegaBot is a project of the [Institute of Technology and Society of Rio de Janeiro (ITS Rio)](https://itsrio.org), [Instituto Equidade & Tecnologia](https://tecnologiaequidade.org.br/) and [AppCívico](https://appcivico.com/).
 
-**spottingbot is an experimental project that needs you to evolve, do not hesitate to contribute on our [GitHub repository](https://github.com/AppCivico/spottingbot) or to contact us at [valentin@appcivico.com](mailto:valentin@appcivico.com).**
+spottingbot is an experimental project that needs you to evolve, do not hesitate to contribute on our [GitHub repository](https://github.com/AppCivico/spottingbot) or to contact us at [valentin@appcivico.com](mailto:valentin@appcivico.com)._**
