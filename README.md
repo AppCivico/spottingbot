@@ -1,30 +1,36 @@
 # spottingbot
-Analyzing profile on Twitter for detect behavior of spamming bot
-
-## Installation:
-
-`npm install`
+Analyzing profile on Twitter for detect behavior of a spamming bot
 
 ## Usage
 
+spottingbot can be used both as a [command-line interface application (cli)](https://github.com/AppCivico/spottingbot#command-line-interface) or as an [independent module](https://github.com/AppCivico/spottingbot#module)
+
 ### Command-line interface
+
+#### Installation
+
+`npm install`
+
+#### Settings file
 
 Create a `.twitter.json` file that contains:
 
 ```json
 {
-  "twitter_consumer_key": "Your application consumer key",
-  "twitter_consumer_secret": "Your application consumer secret",
-  "twitter_access_token_key": "Your application access token key",
-  "twitter_access_token_secret": "Your application access token secret"
+  "consumer_key": "Your application consumer key",
+  "consumer_secret": "Your application consumer secret",
+  "access_token_key": "Your application access token key, only for user authentication",
+  "access_token_secret": "Your application access token secret, only for user authentication"
 }
 ```
 
-Then
+Both User and App-only authentication are supported, for App-only, the Bearer token will be automatically requested
+
+#### Start
 
 `npm start username`
 
-or
+*or*
 
 `source/cli.js username`
 
@@ -32,9 +38,9 @@ or
 
 #### Install bin locally on your system
 
-`npm link`
+`npm link` *sudo might be necessary*
 
-Then
+*Then*
 
 `spottingbot username`
 
@@ -50,14 +56,14 @@ spottingbot(username, config)
 
 `username` is a string that contains the screen name of the Twitter profile to analyze.
 
-`config` is an object that contains Twitter app credentials, it should be like:
+`config` is an object that contains Twitter credentials, both User and App-only authentication are supported, for App-only, the Bearer token will be automatically requested, the `config` object should be like:
 
 ```js
 {
-  twitter_consumer_key: "Your application consumer key",
-  twitter_consumer_secret: "Your application consumer secret",
-  twitter_access_token_key: "Your application access token key",
-  twitter_access_token_secret: "Your application access token secret"
+  consumer_key: "Your application consumer key",
+  consumer_secret: "Your application consumer secret",
+  access_token_key: "Your application access token key", // Only for User authentication
+  access_token_secret: "Your application access token secret" // Only for User authentication
 }
 ```
 
@@ -102,14 +108,6 @@ The return value is an object that contains
        username: 'screen_name',
        url: 'https://twitter.com/screen_name',
        avatar: 'image link',
-       language_dependent: {
-         content: {
-           value: 0  // Unused for now
-         },
-         sentiment: {
-           value: 0  // Unused for now
-         }
-       },
        language_independent: {
          friend: 0.19,
          temporal: 0.37,
@@ -120,9 +118,7 @@ The return value is an object that contains
          all: 0.37,
          language_independent: 0.37
        },
-       share_link_on_social_network: '.', // Unused
        user_profile_language: 'en',
-       feedback_report_link: '.'  // Unused
      }
   ]
 }
@@ -134,4 +130,4 @@ The return value is an object that contains
 
 **PegaBot is a project of the [Institute of Technology and Society of Rio de Janeiro (ITS Rio)](https://itsrio.org), [Instituto Equidade & Tecnologia](https://tecnologiaequidade.org.br/) and [AppCívico](https://appcivico.com/).**
 
-**spottingbot is an experimental project that needs you to evolve, do not hesitate to contribute on our [GitHub repository](https://github.com/AppCivico/spottingbot) or to contact us at [valentin@eokoe.com](mailto:valentin@eokoe.com).**
+**spottingbot is an experimental project that needs you to evolve, do not hesitate to contribute on our [GitHub repository](https://github.com/AppCivico/spottingbot) or to contact us at [valentin@appcivico.com](mailto:valentin@appcivico.com).**

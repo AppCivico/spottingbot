@@ -2,11 +2,12 @@
 const
   async = require('async');
 
+const request = require('request');
+
 const Twitter = require('twitter');
 
 // Import our module
-const
-  userIndex = require('./index/user');
+const userIndex = require('./index/user');
 
 const friendsIndex = require('./index/friends');
 
@@ -15,26 +16,24 @@ const temporalIndex = require('./index/temporal');
 const networkIndex = require('./index/network');
 
 module.exports = function (screen_name, config, cb) {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     if (!screen_name || !config) {
       let error = 'You need to provide an username to analyze and a config for twitter app';
       if (cb) cb(error, null);
       reject(error);
       return error;
     }
-    if (!config.twitter_consumer_key || !config.twitter_consumer_secret || !config.twitter_access_token_key || !config.twitter_access_token_secret) {
-      let error = '.twitter.json config file should have the following parameters:\ntwitter_consumer_key\ntwitter_consumer_secret\ntwitter_access_token_key\ntwitter_access_token_secret';
+    if (!config.consumer_key || !config.consumer_secret) {
+      let error = '.twitter.json config file should have the following parameters:\nconsumer_key\nconsumer_secret';
       if (cb) cb(error, null);
       reject(error);
       return error;
     }
+    if (!config.access_token_key || !config.access_token_secret) {
+      config.bearer_token = await requestBearer(config);
+    }
     // Create Twitter client
-    const client = new Twitter({
-      consumer_key: config.twitter_consumer_key,
-      consumer_secret: config.twitter_consumer_secret,
-      access_token_key: config.twitter_access_token_key,
-      access_token_secret: config.twitter_access_token_secret,
-    });
+    const client = new Twitter(config);
     let param = {
       screen_name: screen_name,
     };
@@ -99,6 +98,9 @@ module.exports = function (screen_name, config, cb) {
       let temporalScore = results[3][0];
       let networkScore = results[3][1];
       let total = (userScore + friendsScore + temporalScore + networkScore) / 4;
+      if (total > 1) {
+        total = 1;
+      }
       let object = {
         metadata: {
           count: 1,
@@ -107,14 +109,6 @@ module.exports = function (screen_name, config, cb) {
           username: param.screen_name,
           url: 'https://twitter.com/' + param.screen_name,
           avatar: user.profile_image_url,
-          language_dependent: {
-            content: {
-              value: 0,
-            },
-            sentiment: {
-              value: 0,
-            },
-          },
           language_independent: {
             friend: friendsScore,
             temporal: temporalScore,
@@ -123,11 +117,8 @@ module.exports = function (screen_name, config, cb) {
           },
           bot_probability: {
             all: total,
-            language_independent: total,
           },
-          share_link_on_social_network: '.',
           user_profile_language: user.lang,
-          feedback_report_link: '.',
         }),
       };
       if (cb) cb(null, object);
@@ -136,3 +127,29 @@ module.exports = function (screen_name, config, cb) {
     });
   });
 };
+
+function requestBearer(config) {
+  return new Promise((resolve, reject) => {
+    let body = {
+      grant_type: 'client_credentials',
+    };
+    let param = {
+      method: 'POST',
+      url: 'https://api.twitter.com/oauth2/token',
+      headers: {
+        Authorization: 'Basic ' + Buffer.from(config.consumer_key + ':' + config.consumer_secret).toString('base64'),
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Length': 29,
+      },
+      body: require('querystring').stringify(body),
+    };
+    request(param, function (err, res, body) {
+      if (err) {
+        reject(err);
+        return err;
+      }
+      let data = JSON.parse(body);
+      resolve(data.access_token);
+    });
+  });
+}
