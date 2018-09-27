@@ -123,10 +123,7 @@ The return value is an object that contains
 }
 ```
 
-**_spottingbot is a project inspired by [Botometer](https://botometer.iuni.iu.edu/#!/), an [OSoMe](https://osome.iuni.iu.edu/) project
-
+**spottingbot is a project inspired by [Botometer](https://botometer.iuni.iu.edu/#!/), an [OSoMe](https://osome.iuni.iu.edu/) project
 This project is part of the [PegaBot](http://www.pegabot.com.br) initiative.
-
 PegaBot is a project of the [Institute of Technology and Society of Rio de Janeiro (ITS Rio)](https://itsrio.org), [Instituto Equidade & Tecnologia](https://tecnologiaequidade.org.br/) and [AppCívico](https://appcivico.com/).
-
-spottingbot is an experimental project that needs you to evolve, do not hesitate to contribute on our [GitHub repository](https://github.com/AppCivico/spottingbot) or to contact us at [valentin@appcivico.com](mailto:valentin@appcivico.com)._**
+spottingbot is an experimental project that needs you to evolve, do not hesitate to contribute on our [GitHub repository](https://github.com/AppCivico/spottingbot) or to contact us at [valentin@appcivico.com](mailto:valentin@appcivico.com).**
