@@ -1,6 +1,8 @@
 # spottingbot
 Analyzing profile on Twitter for detect behavior of a spamming bot
 
+**spottingbot is an experimental and open-source project that needs you to evolve, do not hesitate to contribute on our [GitHub repository](https://github.com/AppCivico/spottingbot) by pull request or to contact us at [valentin@appcivico.com](mailto:valentin@appcivico.com). A documentation about how the current indexes are calculated is also available [here](https://github.com/AppCivico/spottingbot/blob/master/documentation/)**
+
 ## Usage
 
 spottingbot can be used both as a [command-line interface application (cli)](https://github.com/AppCivico/spottingbot#command-line-interface) or as an [independent module](https://github.com/AppCivico/spottingbot#module)
@@ -143,4 +145,4 @@ The return value is an object that contains
 
 **PegaBot is a project of the [Institute of Technology and Society of Rio de Janeiro (ITS Rio)](https://itsrio.org), [Instituto Equidade & Tecnologia](https://tecnologiaequidade.org.br/) and [AppCívico](https://appcivico.com/).**
 
-**spottingbot is an experimental project that needs you to evolve, do not hesitate to contribute on our [GitHub repository](https://github.com/AppCivico/spottingbot) or to contact us at [valentin@appcivico.com](mailto:valentin@appcivico.com).**
+**spottingbot is an experimental and open-source project that needs you to evolve, do not hesitate to contribute on our [GitHub repository](https://github.com/AppCivico/spottingbot) by pull request or to contact us at [valentin@appcivico.com](mailto:valentin@appcivico.com). A documentation about how the current indexes are calculated is also available [here](https://github.com/AppCivico/spottingbot/blob/master/documentation/)**
