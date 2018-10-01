@@ -15,7 +15,7 @@ const temporalIndex = require('./index/temporal');
 
 const networkIndex = require('./index/network');
 
-module.exports = function (screen_name, config, cb) {
+module.exports = function (screen_name, config, index = {user: true, friend: true, network: true, temporal: true}, cb) {
   return new Promise(async (resolve, reject) => {
     if (!screen_name || !config) {
       let error = 'You need to provide an username to analyze and a config for twitter app';
@@ -37,8 +37,13 @@ module.exports = function (screen_name, config, cb) {
     let param = {
       screen_name: screen_name,
     };
+    let indexCount = 0;
     async.parallel([
       function (callback) {
+        if (index.user === false) {
+          callback();
+          return;
+        }
         client.get('users/show', param, async function (error, tweets, response_twitter_user) {
           if (error) {
             callback(error);
@@ -46,10 +51,15 @@ module.exports = function (screen_name, config, cb) {
           }
           let data = JSON.parse(response_twitter_user.body);
           let res = await userIndex(data);
+          indexCount++;
           callback(null, res, data);
         });
       },
       function (callback) {
+        if (index.friend === false) {
+          callback();
+          return;
+        }
         param.count = 200;
         client.get('followers/list', param, async function (error, tweets, response_twitter_user) {
           if (error) {
@@ -58,10 +68,15 @@ module.exports = function (screen_name, config, cb) {
           }
           let data = JSON.parse(response_twitter_user.body);
           let res = await friendsIndex(data);
+          indexCount++;
           callback(null, res);
         });
       },
       function (callback) {
+        if (index.friend === false) {
+          callback();
+          return;
+        }
         param.count = 200;
         client.get('friends/list', param, async function (error, tweets, response_twitter_user) {
           if (error) {
@@ -74,6 +89,10 @@ module.exports = function (screen_name, config, cb) {
         });
       },
       function (callback) {
+        if (index.temporal === false && index.netowrk === false) {
+          callback();
+          return;
+        }
         param.count = 200;
         client.get('statuses/user_timeline', param, async function (error, tweets, response_twitter_user) {
           if (error) {
@@ -81,8 +100,16 @@ module.exports = function (screen_name, config, cb) {
             return;
           }
           let data = JSON.parse(response_twitter_user.body);
-          let res1 = await temporalIndex(data);
-          let res2 = await networkIndex(data);
+          let res1 = null;
+          let res2 = null;
+          if (index.temporal !== false) {
+            res1 = await temporalIndex(data);
+            indexCount++;
+          }
+          if (index.netowrk !== false) {
+            res2 = await networkIndex(data);
+            indexCount++;
+          }
           callback(null, [res1, res2]);
         });
       },
@@ -97,7 +124,11 @@ module.exports = function (screen_name, config, cb) {
       let friendsScore = (results[1] + (results[2] * 1.5)) / (2 * 1.5);
       let temporalScore = results[3][0];
       let networkScore = results[3][1];
-      let total = (userScore + friendsScore + temporalScore + networkScore) / 4;
+      if (isNaN(userScore)) userScore = null;
+      if (isNaN(friendsScore)) friendsScore = null;
+      if (isNaN(temporalScore)) temporalScore = null;
+      if (isNaN(networkScore)) networkScore = null;
+      let total = (userScore + friendsScore + temporalScore + networkScore) / indexCount;
       if (total > 1) {
         total = 1;
       }

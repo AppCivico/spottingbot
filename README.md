@@ -51,7 +51,7 @@ Create a `.twitter.json` file that contains:
 ```js
 const spottingbot = require('spottingbot');
 
-spottingbot(username, config)
+spottingbot(username, twitter_config, index)
 ```
 
 `username` is a string that contains the screen name of the Twitter profile to analyze.
@@ -67,6 +67,20 @@ spottingbot(username, config)
 }
 ```
 
+`index` is used for disabling some index, it is an object that looks like
+```js
+{
+  user: true,
+  friend: true,
+  temporal: true,
+  network: true
+}
+```
+
+By default, and if omitted, everything is `true`.
+
+To disabling only one index, this is not necessary to put everything in the object, `{friend: false}`, is correct.
+
 #### Return value
 
 *spottingbot* handle both *callback* style and *node promise* style
@@ -74,7 +88,7 @@ spottingbot(username, config)
 ##### Callback
 
 ```js
-spottingbot(username, config, function(error, result) {
+spottingbot(username, twitter_config, index, function(error, result) {
   if (err) {
     // Handle error
   }
@@ -85,7 +99,7 @@ spottingbot(username, config, function(error, result) {
 ##### Promise
 
 ```js
-spottingbot(username, config)
+spottingbot(username, twitter_config, index)
   .then(result => {
     // Do something with result
   })
