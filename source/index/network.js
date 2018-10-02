@@ -13,8 +13,11 @@ module.exports = function (data) {
         }
       });
       current.entities.user_mentions.forEach(function (user_mention) {
-        if (distribution_user_mentions.indexOf(user_mention.screen_name) === -1) {
+        if (current.in_reply_to_screen_name !== user_mention.screen_name && distribution_user_mentions.indexOf(user_mention.screen_name) === -1) {
           distribution_user_mentions.push(user_mention.screen_name);
+        }
+        else if (current.in_reply_to_screen_name === user_mention.screen_name) {
+          count_mentions--;
         }
       });
     });

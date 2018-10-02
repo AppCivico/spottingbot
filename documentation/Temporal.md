@@ -21,7 +21,7 @@ Calcul of the probability:
 - Substract all date of a created tweet to the date of the tweet created previously. Put this diff in an
 array if it is not already present
 - Divide the number of total tweets by the number of day the profile was created and multiplicate it
-by x0,
+by x0,025 to not make this score impact a lot the final
 
 Then to get the temporal score, we add 2 to the length of the diff array and divide the result by the
 size of the sample. The result is removed from 1. Finally the tweets ratio score is added to get the

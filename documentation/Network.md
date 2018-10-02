@@ -9,6 +9,7 @@ Preparation of data:
 For each data collected, put it in a distribution array that contains an unique element of each
 different element collected.
 For example, if we have five times the hashtag “#eleçoes”, we put this data only once in the array
+For mentions, do not count a mention if it belong to a reply
 
 List of subindex:
 
