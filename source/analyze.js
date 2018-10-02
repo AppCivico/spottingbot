@@ -128,9 +128,22 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
       if (isNaN(friendsScore)) friendsScore = null;
       if (isNaN(temporalScore)) temporalScore = null;
       if (isNaN(networkScore)) networkScore = null;
-      let total = (userScore + friendsScore + temporalScore + networkScore) / indexCount;
+      let scoreSum = userScore + friendsScore + temporalScore + networkScore
+      let total = scoreSum / indexCount;
       if (total > 1) {
         total = 1;
+      }
+      if (networkScore > 1) {
+        networkScore /= 2;
+      }
+      if (networkScore === 1) {
+        networkScore = 1;
+      }
+      if (temporalScore > 1) {
+        temporalScore /= 2;
+      }
+      if (temporalScore === 1) {
+        temporalScore = 1;
       }
       let object = {
         metadata: {
