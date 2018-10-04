@@ -3,6 +3,8 @@ Analyzing profile on Twitter for detect behavior of a spamming bot
 
 **_spottingbot is an experimental and open-source project that needs you to evolve, do not hesitate to contribute on our [GitHub repository](https://github.com/AppCivico/spottingbot) by opening a pull request or to contact us at [valentin@appcivico.com](mailto:valentin@appcivico.com). A documentation about how the current indexes are calculated is also available [here](https://github.com/AppCivico/spottingbot/blob/master/documentation/)_**
 
+**You can also join us on our [Telegram group](https://t.me/joinchat/AOHjCkUyx1zPuNzhf36mEw) for freely talk about suggestions, improvement or simply ask us anything**
+
 ## Usage
 
 spottingbot can be used both as a [command-line interface application (cli)](https://github.com/AppCivico/spottingbot#command-line-interface) or as an [independent module](https://github.com/AppCivico/spottingbot#module)

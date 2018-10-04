@@ -30,6 +30,9 @@ divide 5 by 50.
 We proceed the same for the mentions and we remove both score from 1.
 Next, we make the average of the two score we just get and we add it the the average network score
 
+
+Score = ((Total of hashtags + mentions) / (Number of data * 2)) + ((1 - (Number of different hashtags used / Total of hashtags)) + (1 - (Number of different mentions used / Total of mentions))) / 2;
+
 More explanations:
 This index calculate if the profile is spamming some hashtag or users. The most hashtags/mentions
 there have, the most the score will be high, the normal ration of hashtags/mentions by tweets in

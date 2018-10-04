@@ -18,3 +18,7 @@ Find here all the explanation about the calculation of the current indexes
 ## Temporal
 
 [Markdown File](https://github.com/AppCivico/spottingbot/blob/master/documentation/Temporal.md) about [temporal calculation source code](https://github.com/AppCivico/spottingbot/blob/master/source/index/temporal.js)
+
+## Total
+
+[Markdown File](https://github.com/AppCivico/spottingbot/blob/master/documentation/Total.md) about [final calculation source code](https://github.com/AppCivico/spottingbot/blob/master/source/analyze.js)

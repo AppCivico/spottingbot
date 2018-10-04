@@ -27,6 +27,8 @@ Then to get the temporal score, we add 2 to the length of the diff array and div
 size of the sample. The result is removed from 1. Finally the tweets ratio score is added to get the
 final score.
 
+Score = (1 - (Size of the diff array + 2) / Number of data) + Ratio tweets by day * 0,025
+
 More explanations:
 A bot can be scheduled to send tweet every X seconds, minute or hours. This index is here for get
 this.
