@@ -55,12 +55,12 @@ Create a `.twitter.json` file that contains:
 ```js
 const spottingbot = require('spottingbot');
 
-spottingbot(username, twitter_config, index)
+spottingbot(username, twitter_config, index);
 ```
 
 `username` is a string that contains the screen name of the Twitter profile to analyze.
 
-`config` is an object that contains Twitter credentials, both User and App-only authentication are supported, for App-only, the Bearer token will be automatically requested, the `config` object should be like:
+`twitter_config` is an object that contains Twitter credentials, both User and App-only authentication are supported, for App-only, the Bearer token will be automatically requested, the `twitter_config` object should be like:
 
 ```js
 {
@@ -93,8 +93,9 @@ To disabling only one index, this is not necessary to put everything in the obje
 
 ```js
 spottingbot(username, twitter_config, index, function(error, result) {
-  if (err) {
+  if (error) {
     // Handle error
+    return;
   }
   // Do something with result
 })
