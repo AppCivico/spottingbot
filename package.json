@@ -20,6 +20,19 @@
     "type": "git",
     "url": "https://github.com/AppCivico/spottingbot.git"
   },
+  "keywords": [
+    "cli-app",
+    "cli",
+    "development",
+    "dev",
+    "build",
+    "tool",
+    "backend",
+    "math",
+    "bot",
+    "bots",
+    "twitter"
+  ],
   "dependencies": {
     "async": "^2.6.1",
     "request": "^2.88.0",

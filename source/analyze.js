@@ -131,6 +131,12 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
       if (userScore === 0) {
         indexCount += 2;
       }
+      if (networkScore === 0) {
+        indexCount += 1;
+      }
+      if (temporalScore === 0) {
+        indexCount += 1;
+      }
       let scoreSum = userScore + friendsScore + temporalScore + networkScore
       let total = scoreSum / indexCount;
       if (total > 1) {
@@ -139,14 +145,14 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
       if (networkScore > 1) {
         networkScore /= 2;
       }
-      if (networkScore === 1) {
-        networkScore = 1;
+      else if (networkScore > 2) {
+        networkScore = 1
       }
       if (temporalScore > 1) {
         temporalScore /= 2;
       }
-      if (temporalScore === 1) {
-        temporalScore = 1;
+      else if (temporalScore > 2) {
+        temporalScore = 1
       }
       let object = {
         metadata: {
