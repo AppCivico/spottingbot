@@ -115,7 +115,6 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
           if (index.sentiment !== false) {
             res3 = await sentimentIndex(data);
             indexCount += res3[1];
-            console.log(res3);
           }
           callback(null, [res1, res2, res3[0]]);
         });
