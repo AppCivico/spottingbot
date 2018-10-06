@@ -29,8 +29,9 @@ analyze(screen_name, config).then(function (info) {
   let friendsScore = Math.round(info.profiles[0].language_independent.friend * 100);
   let temporalScore = Math.round(info.profiles[0].language_independent.temporal * 100);
   let networkScore = Math.round(info.profiles[0].language_independent.network * 100);
+  let sentimentScore = Math.round(info.profiles[0].language_dependent.sentiment * 100);
   let total = Math.round(info.profiles[0].bot_probability.all * 100);
-  console.log('User score:', userScore + '%\nFriends score:', friendsScore + '%\nTemporal score:', temporalScore + '%\nNetwork score:', networkScore + '%\nFinal score:', total + '%');
+  console.log('User score:', userScore + '%\nFriends score:', friendsScore + '%\nTemporal score:', temporalScore + '%\nNetwork score:', networkScore + '%\nSentiment score:', sentimentScore + '%\nFinal score:', total + '%');
 }).catch(function (err) {
   console.error(err);
 });

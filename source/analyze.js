@@ -15,7 +15,9 @@ const temporalIndex = require('./index/temporal');
 
 const networkIndex = require('./index/network');
 
-module.exports = function (screen_name, config, index = {user: true, friend: true, network: true, temporal: true}, cb) {
+const sentimentIndex = require('./index/sentiment');
+
+module.exports = function (screen_name, config, index = {user: true, friend: true, network: true, temporal: true, sentiment: true}, cb) {
   return new Promise(async (resolve, reject) => {
     if (!screen_name || !config) {
       let error = 'You need to provide an username to analyze and a config for twitter app';
@@ -89,7 +91,7 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
         });
       },
       function (callback) {
-        if (index.temporal === false && index.netowrk === false) {
+        if (index.temporal === false && index.network === false && index.sentiment === false) {
           callback();
           return;
         }
@@ -106,11 +108,16 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
             res1 = await temporalIndex(data);
             indexCount++;
           }
-          if (index.netowrk !== false) {
+          if (index.network !== false) {
             res2 = await networkIndex(data);
             indexCount++;
           }
-          callback(null, [res1, res2]);
+          if (index.sentiment !== false) {
+            res3 = await sentimentIndex(data);
+            indexCount += res3[1];
+            console.log(res3);
+          }
+          callback(null, [res1, res2, res3[0]]);
         });
       },
     ], function (err, results) {
@@ -124,6 +131,7 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
       let friendsScore = (results[1] + (results[2] * 1.5)) / (2 * 1.5);
       let temporalScore = results[3][0];
       let networkScore = results[3][1];
+      let sentimentScore = results[3][2];
       if (isNaN(userScore)) userScore = null;
       if (isNaN(friendsScore)) friendsScore = null;
       if (isNaN(temporalScore)) temporalScore = null;
@@ -137,7 +145,7 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
       if (temporalScore === 0) {
         indexCount += 1;
       }
-      let scoreSum = userScore + friendsScore + temporalScore + networkScore
+      let scoreSum = userScore + friendsScore + temporalScore + networkScore + sentimentScore
       let total = scoreSum / indexCount;
       if (total > 1) {
         total = 1;
@@ -162,6 +170,9 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
           username: param.screen_name,
           url: 'https://twitter.com/' + param.screen_name,
           avatar: user.profile_image_url,
+          language_dependent: {
+            sentiment: sentimentScore
+          },
           language_independent: {
             friend: friendsScore,
             temporal: temporalScore,

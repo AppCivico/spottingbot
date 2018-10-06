@@ -35,6 +35,7 @@
   ],
   "dependencies": {
     "async": "^2.6.1",
+    "multilang-sentiment": "^1.1.6",
     "request": "^2.88.0",
     "twitter": "^1.7.1"
   },
