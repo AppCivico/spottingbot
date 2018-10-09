@@ -16,7 +16,7 @@ module.exports = function (data) {
     let age = library.convertTwitterDateToDaysAge(data.created_at);
     let ratio_tweets_day = data.statuses_count / age;
     if (data.verified) {
-      resolve(0, 3);
+      resolve([0, 3]);
     }
     let nameCut = name.replace(/[\s_]+/g, '');
     let screenNameCut = screen_name.replace(/[\s_]+/g, '');
@@ -59,6 +59,6 @@ module.exports = function (data) {
     let userScore = (nameSimilarityScore + numberDigitScore + nameLengthScore + screenNameLengthScore + descriptionLengthScore + ageScore + ratioTweetScore + favoritesScore + imageScore + friendScore) / 10;
     if (userScore < 0) userScore = 0;
     else if (userScore > 1) userScore = 1;
-    resolve(userScore, 1);
+    resolve([userScore, 1]);
   });
 };

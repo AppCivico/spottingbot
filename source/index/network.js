@@ -36,6 +36,6 @@ module.exports = function (data) {
     if (score_network === 0) {
       weight += 1;
     }
-    resolve(score_network, weight);
+    resolve([score_network, weight]);
   });
 };
