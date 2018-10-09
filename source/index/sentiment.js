@@ -2,7 +2,7 @@ const sentiment = require('multilang-sentiment');
 
 module.exports = function (data) {
   return new Promise((resolve) => {
-    let sentimentSum = 0
+    let sentimentNeutralSum = 0
     data.forEach(function(current) {
       let lang = current.lang;
       let text = current.text;
@@ -10,13 +10,12 @@ module.exports = function (data) {
         lang = null
       }
       let res = sentiment(text);
-      sentimentSum += Math.abs(res.comparative);
+      if (res.comparative === 0) {
+        sentimentNeutralSum++;
+      }
     })
-    let score_sentiment = 1 - (sentimentSum / (data.length * 2));
-    let weight = 1;
-    if (score_sentiment < 0.25) {
-      weight = 0.5;
-    }
+    let score_sentiment = sentimentNeutralSum / data.length;
+    let weight = 2;
     resolve([score_sentiment, weight]);
   });
 };

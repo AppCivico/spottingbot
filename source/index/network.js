@@ -32,6 +32,10 @@ module.exports = function (data) {
     let score_mentions = 1 - (distribution_user_mentions.length / count_mentions);
     let score_distrib = (score_hashtags + score_mentions) / 2;
     let score_network = average_network + score_distrib;
-    resolve(score_network);
+    let weight = 1;
+    if (score_network === 0) {
+      weight += 1;
+    }
+    resolve(score_network, weight);
   });
 };

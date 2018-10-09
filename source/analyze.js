@@ -53,8 +53,8 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
           }
           let data = JSON.parse(response_twitter_user.body);
           let res = await userIndex(data);
-          indexCount++;
-          callback(null, res, data);
+          indexCount += res[1];
+          callback(null, res[0], data);
         });
       },
       function (callback) {
@@ -70,8 +70,8 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
           }
           let data = JSON.parse(response_twitter_user.body);
           let res = await friendsIndex(data);
-          indexCount++;
-          callback(null, res);
+          indexCount += res[1];
+          callback(null, res[0]);
         });
       },
       function (callback) {
@@ -87,7 +87,7 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
           }
           let data = JSON.parse(response_twitter_user.body);
           let res = await friendsIndex(data);
-          callback(null, res);
+          callback(null, res[0]);
         });
       },
       function (callback) {
@@ -106,17 +106,17 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
           let res2 = null;
           if (index.temporal !== false) {
             res1 = await temporalIndex(data);
-            indexCount++;
+            indexCount += res1[1];
           }
           if (index.network !== false) {
             res2 = await networkIndex(data);
-            indexCount++;
+          indexCount += res2[1];
           }
           if (index.sentiment !== false) {
             res3 = await sentimentIndex(data);
             indexCount += res3[1];
           }
-          callback(null, [res1, res2, res3[0]]);
+          callback(null, [res1[0], res2[0], res3[0]]);
         });
       },
     ], function (err, results) {
@@ -135,15 +135,6 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
       if (isNaN(friendsScore)) friendsScore = null;
       if (isNaN(temporalScore)) temporalScore = null;
       if (isNaN(networkScore)) networkScore = null;
-      if (userScore === 0) {
-        indexCount += 2;
-      }
-      if (networkScore === 0) {
-        indexCount += 1;
-      }
-      if (temporalScore === 0) {
-        indexCount += 1;
-      }
       let scoreSum = userScore + friendsScore + temporalScore + networkScore + sentimentScore
       let total = scoreSum / indexCount;
       if (total > 1) {

@@ -22,6 +22,10 @@ module.exports = function (data) {
     if (temporal_score < 0) {
       temporal_score = 0;
     }
-    resolve(temporal_score);
+    let weight = 1;
+    if (temporal_score === 0) {
+      weight += 1;
+    }
+    resolve(temporal_score, weight);
   });
 };
