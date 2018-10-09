@@ -102,15 +102,16 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
             return;
           }
           let data = JSON.parse(response_twitter_user.body);
-          let res1 = null;
-          let res2 = null;
+          let res1 = [];
+          let res2 = [];
+          let res3 = [];
           if (index.temporal !== false) {
             res1 = await temporalIndex(data);
             indexCount += res1[1];
           }
           if (index.network !== false) {
             res2 = await networkIndex(data);
-          indexCount += res2[1];
+            indexCount += res2[1];
           }
           if (index.sentiment !== false) {
             res3 = await sentimentIndex(data);
@@ -135,6 +136,7 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
       if (isNaN(friendsScore)) friendsScore = null;
       if (isNaN(temporalScore)) temporalScore = null;
       if (isNaN(networkScore)) networkScore = null;
+      if (isNaN(sentimentScore)) sentimentScore = null;
       let scoreSum = userScore + friendsScore + temporalScore + networkScore + sentimentScore
       let total = scoreSum / indexCount;
       if (total > 1) {
