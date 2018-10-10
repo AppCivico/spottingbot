@@ -163,7 +163,9 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
           url: 'https://twitter.com/' + param.screen_name,
           avatar: user.profile_image_url,
           language_dependent: {
-            sentiment: sentimentScore
+            sentiment: {
+              value: sentimentScore
+            }
           },
           language_independent: {
             friend: friendsScore,

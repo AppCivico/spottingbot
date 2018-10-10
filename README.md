@@ -127,6 +127,11 @@ The return value is an object that contains
        username: 'screen_name',
        url: 'https://twitter.com/screen_name',
        avatar: 'image link',
+       language_dependent: {
+         sentiment: {
+           value: 0.65
+         }
+       },
        language_independent: {
          friend: 0.19,
          temporal: 0.37,

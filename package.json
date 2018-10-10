@@ -1,6 +1,6 @@
 {
   "name": "spottingbot",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Analyzing profile on Twitter for detect behavior of spamming bot",
   "homepage": "https://github.com/AppCivico/spottingbot#readme",
   "main": "source/analyze.js",
