@@ -4,14 +4,18 @@ module.exports = function (data) {
   return new Promise((resolve) => {
     let creationArray = [];
     let delayTwoTweets = [];
+    // Put the date of each tweets in array
     data.forEach(function (current) {
       let date = new Date(current.created_at + 'Z');
       creationArray.push(date);
     });
+    // Calculate the difference time between each tweet
     for (let i = 0; i < creationArray.length - 1; i++) {
       let diff = creationArray[i].getTime() - creationArray[i + 1].getTime();
+      // If the difference time is not already in the array, put it
       if (delayTwoTweets.indexOf(diff) === -1) {
         delayTwoTweets.push(diff);
+        // The shorter this array is, the more tweets are posted in a very regular way
       }
     }
     let age = library.convertTwitterDateToDaysAge(data[0].user.created_at);

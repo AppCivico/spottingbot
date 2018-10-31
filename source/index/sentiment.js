@@ -9,7 +9,7 @@ module.exports = function (data) {
       if (lang === 'und') {
         lang = null
       }
-      let res = sentiment(text);
+      let res = sentiment(text, lang);
       if (res.comparative === 0) {
         sentimentNeutralSum++;
       }

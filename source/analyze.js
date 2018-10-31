@@ -18,6 +18,7 @@ const networkIndex = require('./index/network');
 const sentimentIndex = require('./index/sentiment');
 
 module.exports = function (screen_name, config, index = {user: true, friend: true, network: true, temporal: true, sentiment: true}, cb) {
+  // Check parameters
   return new Promise(async (resolve, reject) => {
     if (!screen_name || !config) {
       let error = 'You need to provide an username to analyze and a config for twitter app';
@@ -31,6 +32,7 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
       reject(error);
       return error;
     }
+    // If no access token and secret are provided, request a bearer token to make an App-auth
     if (!config.access_token_key || !config.access_token_secret) {
       config.bearer_token = await requestBearer(config);
     }
@@ -39,8 +41,14 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
     let param = {
       screen_name: screen_name,
     };
+    // Index count is the divisor for the final average score, it is increase at same time of the index score calculation according to the weight of these index
     let indexCount = 0;
+    // All the following functions will be executing at the same time and then call the final one
     async.parallel([
+      /*
+        This function is used to get the users/show endpoint, it is used for calculate following index:
+        - user
+      */
       function (callback) {
         if (index.user === false) {
           callback();
@@ -57,6 +65,10 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
           callback(null, res[0], data);
         });
       },
+      /*
+        This function is used to get the followers/list endpoint, it is used for calculate following index:
+        - friend
+      */
       function (callback) {
         if (index.friend === false) {
           callback();
@@ -74,6 +86,10 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
           callback(null, res[0]);
         });
       },
+      /*
+        This function is used to get the friends/list endpoint, it is used for calculate following index:
+        - friend
+      */
       function (callback) {
         if (index.friend === false) {
           callback();
@@ -90,6 +106,12 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
           callback(null, res[0]);
         });
       },
+      /*
+        This function is used to get the statuses/user_timeline endpoint, it is used for calculate following index:
+        - temporal
+        - network
+        - sentiment
+      */
       function (callback) {
         if (index.temporal === false && index.network === false && index.sentiment === false) {
           callback();
@@ -120,18 +142,24 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
           callback(null, [res1[0], res2[0], res3[0]]);
         });
       },
-    ], function (err, results) {
+    ],
+    /*
+      This function is the final one and occurs when all index get calculated
+    */
+    function (err, results) {
       if (err) {
         if (cb) cb(err, null);
         reject(err);
         return err;
       }
+      // Save all results in the correct variable
       let user = results[0][1];
       let userScore = results[0][0];
       let friendsScore = (results[1] + (results[2] * 1.5)) / (2 * 1.5);
       let temporalScore = results[3][0];
       let networkScore = results[3][1];
       let sentimentScore = results[3][2];
+      // If any scores is not calculated, null is set for avoid error during the final calculation
       if (isNaN(userScore)) userScore = null;
       if (isNaN(friendsScore)) friendsScore = null;
       if (isNaN(temporalScore)) temporalScore = null;
@@ -139,6 +167,7 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
       if (isNaN(sentimentScore)) sentimentScore = null;
       let scoreSum = userScore + friendsScore + temporalScore + networkScore + sentimentScore
       let total = scoreSum / indexCount;
+      // Adjustment for not getting any score more than 1 in the final result
       if (total > 1) {
         total = 1;
       }
@@ -154,6 +183,7 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
       else if (temporalScore > 2) {
         temporalScore = 1
       }
+      // Create the response object
       let object = {
         metadata: {
           count: 1,
@@ -186,6 +216,7 @@ module.exports = function (screen_name, config, index = {user: true, friend: tru
   });
 };
 
+// Request a bearer token for an App Auth
 function requestBearer(config) {
   return new Promise((resolve, reject) => {
     let body = {

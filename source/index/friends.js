@@ -9,6 +9,7 @@ module.exports = function (data) {
     let distribution_friends_tweets = [];
     let friends_score = 0;
     data.users.forEach(function (current) {
+      // Add news values for each distribution array if the value is not present yet
       if (current.utc_offset != null && distribution_friends_offset.indexOf(current.utc_offset) === -1) {
         distribution_friends_offset.push(current.utc_offset);
       }

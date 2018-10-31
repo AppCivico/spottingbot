@@ -5,8 +5,10 @@ module.exports = function (data) {
     let distribution_hashtags = [];
     let distribution_user_mentions = [];
     data.forEach(function (current) {
+      // Add the count of hashtags and mentions for each tweets to the total
       count_hashtags += current.entities.hashtags.length;
       count_mentions += current.entities.user_mentions.length;
+      // Add news values for each distribution array if the value is not present yet
       current.entities.hashtags.forEach(function (hashtag) {
         if (distribution_hashtags.indexOf(hashtag.text) === -1) {
           distribution_hashtags.push(hashtag.text);
@@ -16,6 +18,7 @@ module.exports = function (data) {
         if (current.in_reply_to_screen_name !== user_mention.screen_name && distribution_user_mentions.indexOf(user_mention.screen_name) === -1) {
           distribution_user_mentions.push(user_mention.screen_name);
         }
+        // If the current mention is actually in a reply, remove it from the count
         else if (current.in_reply_to_screen_name === user_mention.screen_name) {
           count_mentions--;
         }
