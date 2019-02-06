@@ -10,9 +10,6 @@ module.exports = function (data) {
     let screen_name_digits = library.getNumberOfDigit(data.screen_name);
     let description_length = data.description.length;
     let profile_image = data.profile_image_url;
-    if (data.friends_count !== 0) {
-      friends_ratio = data.followers_count / data.friends_count;
-    }
     let age = library.convertTwitterDateToDaysAge(data.created_at);
     let ratio_tweets_day = data.statuses_count / age;
     if (data.verified) {
@@ -48,15 +45,13 @@ module.exports = function (data) {
       ageScore = ageScore - age * 0.001;
       if (ageScore < 0) ageScore = 0;
     }
-    let friendScore = 1 - friends_ratio;
-    if (friendScore < 0) friendScore = 0;
     let imageScore;
     if (profile_image === null) imageScore = 1;
     else imageScore = 0.15;
     let ratioTweetScore = ratio_tweets_day * 0.05;
     let favoritesScore = 1 - data.favourites_count * 0.01;
     if (favoritesScore < 0) favoritesScore = 0;
-    let userScore = (nameSimilarityScore + numberDigitScore + nameLengthScore + screenNameLengthScore + descriptionLengthScore + ageScore + ratioTweetScore + favoritesScore + imageScore + friendScore) / 10;
+    let userScore = (nameSimilarityScore + numberDigitScore + nameLengthScore + screenNameLengthScore + descriptionLengthScore + ageScore + ratioTweetScore + favoritesScore + imageScore) / 9;
     if (userScore < 0) userScore = 0;
     else if (userScore > 1) userScore = 1;
     resolve([userScore, 1]);
